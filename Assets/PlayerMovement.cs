@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour {
 public Rigidbody rb;
 
 //variables to handle forwards and sideways force. The 'f' is to identify these are floats
-public float forwardForce = 2000f;
+public float forwardForce = 1500f;
 public float sidewaysForce = 500f;
 //public float jumpHeight = 3f;
 
@@ -25,11 +25,11 @@ public float sidewaysForce = 500f;
         //If user inputs D on keyboard
         if (Input.GetKey("d")) {
             //apply force on object in postive x direction (to right)
-            rb.AddForce(sidewaysForce * Time.deltaTime, 0, 0);
+            rb.AddForce(sidewaysForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
         }
          if (Input.GetKey("a")) {
             //move left
-            rb.AddForce(-sidewaysForce * Time.deltaTime, 0, 0);
+            rb.AddForce(-sidewaysForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
         }
 
        // if (Input.GetKey(KeyCode.Space) && isGrounded()) {
