@@ -1,51 +1,35 @@
-﻿
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
 
-public Rigidbody rb;
+	// This is a reference to the Rigidbody component called "rb"
+	public Rigidbody rb;
 
-//variables to handle forwards and sideways force. The 'f' is to identify these are floats
-public float forwardForce = 1500f;
-public float sidewaysForce = 500f;
-//public float jumpHeight = 3f;
+	public float forwardForce = 2000f;	// Variable that determines the forward force
+	public float sidewaysForce = 500f;  // Variable that determines the sideways force
 
-//public float distToGround = 0.5f;
+	// We marked this as "Fixed" Update because we
+	// are using it to mess with physics.
+	void FixedUpdate ()
+	{
+		// Add a forward force
+		rb.AddForce(0, 0, forwardForce * Time.deltaTime);
 
-    //oid Start() {
-    //    rb = GetComponent<Rigidbody> ();
-    
-    //}
+		if (Input.GetKey("d"))	// If the player is pressing the "d" key
+		{
+			// Add a force to the right
+			rb.AddForce(sidewaysForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
+		}
 
-    // Unity prefers fixed update when using physics collisions 
-    void FixedUpdate() {
-        //add a forward force
-        rb.AddForce(0, 0, forwardForce * Time.deltaTime);
+		if (Input.GetKey("a"))  // If the player is pressing the "a" key
+		{
+			// Add a force to the left
+			rb.AddForce(-sidewaysForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
+		}
 
-        //If user inputs D on keyboard
-        if (Input.GetKey("d")) {
-            //apply force on object in postive x direction (to right)
-            rb.AddForce(sidewaysForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
-        }
-         if (Input.GetKey("a")) {
-            //move left
-            rb.AddForce(-sidewaysForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
-        }
-
-       // if (Input.GetKey(KeyCode.Space) && isGrounded()) {
-            //Vector3 jumpVelocity = new Vector3 (0f, jumpSpeed, 0f);
-            //rb.velocity = rb.velocity + jumpVelocity; 
-            //velocity.y = Mathf.Sqrt(jumpHeight * - 2f * gravity);
-
-       // }
-
-        //float horizontalVelocity = Input.GetAxis("Horizontal");
-       // float verticalVelocity = Input.GetAxis("Vertical");
-        //Vector3 movement = new Vector3 (horizontalVelocity * 10f * Time.deltaTime, 0, verticalVelocity * 10f * Time.deltaTime);
-       
-    }
-     //bool isGrounded () {
-      //      return Physics.Raycast (transform.position, Vector3.down, distToGround);
-      //  }
-       
+		if (rb.position.y < -1f)
+		{
+			FindObjectOfType<GameManager>().EndGame();
+		}
+	}
 }
