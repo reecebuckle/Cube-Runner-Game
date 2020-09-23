@@ -10,9 +10,15 @@ public class PlayerCollision : MonoBehaviour {
 	{
 		// We check if the object we collided with has a tag called "Obstacle".
 		if (collisionInfo.collider.tag == "Obstacle")
-		{
+		{	
+			Debug.Log("GAME OVER");
 			movement.enabled = false;   // Disable the players movement.
 			FindObjectOfType<GameManager>().EndGame();
+		}
+
+		if (collisionInfo.collider.tag == "End Block") {
+            Debug.Log("Well Done, Block reached");
+            FindObjectOfType<GameManager>().EndGame();
 		}
 	}
 

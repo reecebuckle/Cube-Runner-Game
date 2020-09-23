@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour {
 
 	public void CompleteLevel ()
 	{
+		Debug.Log("Well done, Level Complete");
 		completeLevelUI.SetActive(true);
 	}
 
@@ -19,8 +20,8 @@ public class GameManager : MonoBehaviour {
 		if (gameHasEnded == false)
 		{
 			gameHasEnded = true;
-			Debug.Log("GAME OVER");
-			//Invoke("Restart", restartDelay);
+			
+			Invoke("Restart", restartDelay);
 		}
 	}
 
