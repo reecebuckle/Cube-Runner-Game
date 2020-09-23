@@ -8,6 +8,9 @@ public class PlayerMovement : MonoBehaviour {
 	public float forwardForce = 2000f;	// Variable that determines the forward force
 	public float sidewaysForce = 500f;  // Variable that determines the sideways force
 
+	public float accelerator = 500f;  // Variable that determines the fowards/backwards force
+	public float deccelerator = 500f;  // Variable that determines the fowards/backwards force
+
 	// We marked this as "Fixed" Update because we
 	// are using it to mess with physics.
 	void FixedUpdate ()
@@ -25,6 +28,18 @@ public class PlayerMovement : MonoBehaviour {
 		{
 			// Add a force to the left
 			rb.AddForce(-sidewaysForce * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
+		}
+
+		if (Input.GetKey("w"))  // If the player is pressing the "w" key
+		{
+			// Add a force to the left
+			rb.AddForce(0, 0, accelerator * Time.deltaTime, ForceMode.VelocityChange);
+		}
+
+		if (Input.GetKey("s"))  // If the player is pressing the "w" key
+		{
+			// Add a force to the left
+			rb.AddForce(0, 0, -deccelerator * Time.deltaTime, ForceMode.VelocityChange);
 		}
 
 		if (rb.position.y < -1f)
